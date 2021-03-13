@@ -1,0 +1,62 @@
+﻿@page
+@model _2020_backend.Pages.Times.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>InterviewTime</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InterviewTime.Day)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InterviewTime.Day)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InterviewTime.BeginTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InterviewTime.BeginTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InterviewTime.Place)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InterviewTime.Place)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InterviewTime.Chief)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InterviewTime.Chief)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InterviewTime.TakenNum)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InterviewTime.TakenNum)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InterviewTime.NowNum)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InterviewTime.NowNum)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InterviewTime.SendSMS)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InterviewTime.SendSMS)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.InterviewTime.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

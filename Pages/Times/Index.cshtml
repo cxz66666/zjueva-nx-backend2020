@@ -1,0 +1,99 @@
+﻿@page
+@model _2020_backend.Pages.Times.IndexModel
+
+@{
+    ViewData["Title"] = "面试时间管理";
+}
+
+<h5>@(Model.StuName+"选择的")面试时间</h5>
+
+<span class="mx-sm-2 m-2">
+
+    <a asp-page="Create" class="btn btn-outline-info">创建新的场次</a>
+    <a asp-page="Export" class="btn btn-outline-info">导出</a>
+    <a asp-page="Reset" class="btn btn-outline-light">重置非法时间</a>
+</span>
+
+    <form class="form-inline m-2">
+        <select asp-for="Day" asp-items="Model.DayList" class="form-control">
+            <option value="">筛选日期</option>
+        </select>
+
+        <input type="submit" value="Go!" class="btn btn-outline-primary mb-2" />
+    </form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewTime[0].ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewTime[0].Day)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewTime[0].BeginTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewTime[0].Place)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewTime[0].Chief)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewTime[0].TakenNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewTime[0].NowNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterviewTime[0].SendSMS)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.InterviewTime)
+        {
+        <tr class="@{
+              if(item.SendSMS)
+                @("table-danger")
+             else  if(item.Place=="200")
+                @("table-success")
+            else @("table-warning")
+        } ">
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Day)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BeginTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Chief)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TakenNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NowNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SendSMS)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="../Records/Index" asp-route-EtcId="@item.ID">本场幸运儿</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,38 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: build
+    image: docker
+    commands:
+      - docker build -t eva-nx-backend .
+
+    volumes:
+      - name: cache
+        path: /var/run/docker.sock
+
+  - name: deploy
+    image: appleboy/drone-ssh
+    settings:
+      host: zjueva.net
+      username: cibot
+      port: 22
+      key:
+        from_secret: cibot_backend_secret
+      script:
+        - cd /app/joinus-backend-2020/
+        - docker-compose up -d
+        - docker image prune -a -f
+trigger:
+  branch:
+    - master
+    - dev
+  event:
+    - push
+    - pull_request
+    - rollback
+
+volumes:
+  - name: cache
+    host:
+      path: /var/run/docker.sock

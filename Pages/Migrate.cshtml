@@ -1,0 +1,19 @@
+﻿@page
+@model _2020_backend.Pages.MigrateModel
+@{
+    ViewData["Title"] = "Migrate";
+}
+
+<h1>Migrate</h1>
+<form method="post" > 
+    <input type="submit" value="Migrate" class="btn btn-danger"/>
+</form>
+
+<form method="get">
+    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" asp-for="action" name="action" /> 仅发送失败消息
+            </label>
+        </div>
+            <input type="submit" value="发送" class="btn btn-danger" />
+</form>

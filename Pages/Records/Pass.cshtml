@@ -1,0 +1,57 @@
+﻿@page
+@model _2020_backend.Pages.Records.PassModel
+@{
+    ViewData["Title"] = "请稍候";
+}
+
+<h5>做出你的选择</h5>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            面试场次
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.InterviewTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.firstWish)
+        </dt>
+        <dd class="col-sm-10">
+            @Utils.DateHelp.GetDepartment(Model.Record.firstWish)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.secondWish)
+        </dt>
+        <dd class="col-sm-10">
+            @Utils.DateHelp.GetDepartment(Model.Record.secondWish)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.thirdWish)
+        </dt>
+        <dd class="col-sm-10">
+            @Utils.DateHelp.GetDepartment(Model.Record.thirdWish)
+        </dd>
+    </dl>
+</div>
+<a asp-page="./Comment" asp-route-id="@Model.Record.rid">康康大家怎么说</a>
+
+<form method="post">
+    
+    <input type="hidden" asp-for="Record.id_student" />
+    <div class="form-group">
+        <label asp-for="FinalDepartment" class="control-label"></label>
+        <select asp-for="FinalDepartment" asp-items="@Html.GetEnumSelectList(typeof(Models.Department))">
+            <option value=""></option>
+        </select>
+    
+    </div>
+    <div class="form-group">
+        <input type="submit" value="GOGO!" class="btn btn-primary" />
+    </div>
+</form>

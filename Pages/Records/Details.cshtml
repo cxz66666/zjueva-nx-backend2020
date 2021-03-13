@@ -1,0 +1,193 @@
+﻿@page
+@model _2020_backend.Pages.Records.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    string src = "https://1299271970796699.cn-hangzhou.fc.aliyuncs.com/2016-08-15/proxy/oss_upload/download/?stuId=" + Model.Encode(Model.Record.id_student);
+}
+
+
+<div>
+    <img src=@src style="width:200px;height:200px" alt="这人没照片，别看了" onclick="ShowPic(@(Model.Encode(Model.Record.id_student)))" />
+  
+    <dl class="row">
+        <dt class="col-sm-2">
+            面试场次编号
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.InterviewID)
+        </dd>
+        <dt class="col-sm-2">
+            面试场次
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.InterviewTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.id_student)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.id_student)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.sex)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.Record.sex ? "女" : "男")
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.grade)
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                switch (Model.Record.grade)
+                {
+                    case 1:
+                        @("大一")
+                        break;
+                    case 2:
+                        @("大二")
+                        break;
+                    case 3:
+                        @("大三")
+                        break;
+                    case 4:
+                        @("大四")
+                        break;
+                }
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.major)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.major)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.firstWish)
+        </dt>
+        <dd class="col-sm-10">
+            @(Utils.DateHelp.GetDepartment(Model.Record.firstWish))
+
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.secondWish)
+        </dt>
+        <dd class="col-sm-10">
+            @(Utils.DateHelp.GetDepartment(Model.Record.secondWish))
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.thirdWish)
+        </dt>
+        <dd class="col-sm-10">
+            @(Utils.DateHelp.GetDepartment(Model.Record.thirdWish))
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.adjustment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.adjustment)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.strguid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.strguid)
+        </dd>
+        <dt class="col-sm-2">
+            @(Utils.DateHelp.GetFirstReason(Model.Record.firstWish))
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.firstReason)
+        </dd>
+        <dt class="col-sm-2">
+            @(Utils.DateHelp.GetSecondReason(Model.Record.firstWish))
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.secondReason)
+        </dd>
+        <dt class="col-sm-2">
+            @(Utils.DateHelp.GetThirdReason(Model.Record.secondWish))
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.thirdReason)
+        </dd>
+        <dt class="col-sm-2">
+            个人简介（可以从特长爱好、人生经历、个人性格等方面谈一谈）
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.question1)
+        </dd>
+        <dt class="col-sm-2">
+            你希望未来能在E志者协会得到什么？又能为E志付出什么？
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.question2)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.Times)
+        </dt>
+        <dd class="col-sm-10">
+            <a asp-page="../Times/Index" asp-route-rid="@Model.Record.rid">点击查看</a>
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.addedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Record.addedDate.ToString("MM-dd HH:mm")
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.status)
+            <a asp-page="./Pass" asp-route-id="@Model.Record.rid">通过</a> | <a asp-page="./Fail" asp-route-id="@Model.Record.rid">拒绝</a> | <a asp-page="./Pending" asp-route-id="@Model.Record.rid">待定</a>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Record.ip)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Record.ip)
+        </dd>
+
+
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Record.rid">Edit</a> |
+    <a asp-page="./Index">回到首页</a>|
+    <a asp-page="./Comment" asp-route-id="@Model.Record.rid">评论</a>
+</div>
+
+<p>以下是@(Model.Record.sex ? "她" : "他")的所有提交记录</p>
+@foreach (var record in Model.Records)
+{
+    <a asp-page="./Details" asp-route-id="@record.rid">于@(record.addedDate.ToString("MM-dd HH:mm"))进行的提交</a>
+    <br />
+}
+<script type="text/javascript">
+    function ShowPic(id) {
+        window.open("https://1299271970796699.cn-hangzhou.fc.aliyuncs.com/2016-08-15/proxy/oss_upload/download/?stuId=" + id);
+    }
+    
+</script>

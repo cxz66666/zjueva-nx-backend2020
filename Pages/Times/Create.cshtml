@@ -1,0 +1,65 @@
+﻿@page
+@model _2020_backend.Pages.Times.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>InterviewTime</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="InterviewTime.Day" class="control-label"></label>
+                <input asp-for="InterviewTime.Day" class="form-control" />
+                <span asp-validation-for="InterviewTime.Day" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="InterviewTime.BeginTime" class="control-label"></label>
+                <input asp-for="InterviewTime.BeginTime" class="form-control" />
+                <span asp-validation-for="InterviewTime.BeginTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewTime.Place" class="control-label"></label>
+                <input asp-for="InterviewTime.Place" class="form-control" />
+                <span asp-validation-for="InterviewTime.Place" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewTime.Chief" class="control-label"></label>
+                <input asp-for="InterviewTime.Chief" class="form-control" />
+                <span asp-validation-for="InterviewTime.Chief" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewTime.TakenNum" class="control-label"></label>
+                <input asp-for="InterviewTime.TakenNum" class="form-control" />
+                <span asp-validation-for="InterviewTime.TakenNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterviewTime.SendSMS" class="control-label"></label>
+                <input asp-for="InterviewTime.SendSMS" class="form-control" />
+                <span asp-validation-for="InterviewTime.SendSMS" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateTwo" class="control-label"></label>
+                <input asp-for="CreateTwo" class="form-control" />
+                <span asp-validation-for="CreateTwo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,194 @@
+﻿@page
+@model _2020_backend.Pages.Records.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style type="text/css">
+    .queryable-item {
+        color: #24bc24;
+        text-decoration: underline;
+    }
+</style>
+<p> 当前页面共有@(Model.Record.Count())条记录 </p>
+<div>
+    <div class="p-auto">
+        <span class="mx-sm-2 m-2">
+            <a asp-page="Create" class="btn btn-outline-info">创建</a>
+            <a asp-page="Export" class="btn btn-outline-info">导出</a>
+
+        </span>
+
+        <form class="form-inline m-2">
+            <div class="form-group mx-sm-0 mb-2">
+                <input type="text" class="form-control" id="searchString" placeholder="输入学号或姓名" asp-for="SearchString" name="search">
+            </div>
+            <button type="submit" class="btn btn-outline-primary mb-2">Go!</button>
+        </form>
+
+    </div>
+    <table class="table table-sm text-nowrap table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].rid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].id_student)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].sex)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].grade)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].major)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].firstWish)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].secondWish)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].thirdWish)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].FinalResult)
+                </th>
+                <th>
+                    操作
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].Times)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].InterviewTime)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].addedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record[0].ip)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Record)
+            {
+            <tr class="@{
+                    if (item.InterviewID > 0 && item.status == Models.Status.Pending)
+                    @("table-warning ")
+                    switch (item.status)
+                    {
+                        case Models.Status.Fail:
+                            @("table-danger")
+
+                            break;
+                        case Models.Status.Pass:
+                            @("table-success")
+                            break;
+                        default:
+                            @("")
+                            break;
+                    }} ">
+                <td>
+                    @(item.rid+Model.CheckNum(item.id_student))
+                </td>
+                <td>
+                    <a class="queryable-item" asp-route-search="@item.id_student">@item.id_student</a>
+                </td>
+                <td>
+                    <a class="queryable-item" asp-route-search="@item.name">@item.name</a>
+                </td>
+                <td>
+                    @( item.sex ? "💁‍♀️" : "🙋‍♂️")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phone)
+                </td>
+                <td>
+                    @{
+                        switch (item.grade)
+                        {
+                            case 1:
+                                @("👍")
+                                break;
+                            case 2:
+                                @("✌")
+                                break;
+                            case 3:
+                                @("👌")
+                                break;
+                            case 4:
+                                @("👏")
+                                break;
+                        }
+
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.major)
+                </td>
+
+                <td>
+                    @Utils.DateHelp.GetDepartment(item.firstWish)
+                </td>
+                <td>
+                    @Utils.DateHelp.GetDepartment(item.secondWish)
+                </td>
+                <td>
+                    @Utils.DateHelp.GetDepartment(item.thirdWish)
+                </td>
+                <td>
+                    @Utils.DateHelp.GetDepartment(item.FinalResult)
+                </td>
+                <td>
+                    <a asp-page="./Comment" asp-route-id="@item.rid">评论</a>| <a asp-page="./Edit" asp-route-id="@item.rid">编辑</a> | <a asp-page="./Details" asp-route-id="@item.rid">查看</a> | <a asp-page="./Delete" asp-route-id="@item.rid">删除</a> | <a asp-page="./Pass" asp-route-id="@item.rid">通过</a> | <a asp-page="./Fail" asp-route-id="@item.rid">拒绝</a> | <a asp-page="./Pending" asp-route-id="@item.rid">待定</a> | <a asp-page="./SMS" asp-route-id="@item.rid">
+                        短信@{if (item.Times != null && item.Times.Count() > 0)
+                                @("😁")}
+                    </a>
+                </td>
+                <td>
+                    <a asp-page="../Times/Index" asp-route-rid="@item.rid">查看  </a>  
+                    <a asp-page="../Times/ResetPerson" asp-route-rid="@item.rid">重置时间</a>
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.rid">
+                        @Html.DisplayFor(modelItem => item.InterviewTime)
+                    </a>
+
+                </td>
+                <td>
+                    @(item.addedDate.ToString("MM-dd HH:mm"))
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ip)
+                </td>
+                <td>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item  @(Model.PageId==1 ? "disabled" : "")"><a class="page-link" asp-route-pageId="@(Model.PageId-1)" asp-route-EtcId="@(Model.EtcId)" asp-route-search="@(Model.SearchString)">Previous</a></li>
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                <li class="page-item  @(Model.PageId==i ? "active" : "")"><a class="page-link" asp-route-pageId="@i" asp-route-EtcId="@(Model.EtcId)" asp-route-search="@(Model.SearchString)">@i</a></li>
+            }
+            <li class="page-item @(Model.PageId==Model.PageCount ? "disabled" : "")"><a class="page-link" asp-route-EtcId="@(Model.EtcId)" asp-route-pageId="@(Model.PageId+1)" asp-route-search="@(Model.SearchString)">Next</a></li>
+        </ul>
+    </nav>
+</div>

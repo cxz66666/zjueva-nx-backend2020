@@ -1,0 +1,152 @@
+﻿@page
+@model _2020_backend.Pages.Records.EditModel
+
+@{
+    ViewData["Title"] = "手动编辑";
+}
+
+<h5>面试日期为@(Model.SelectDay + " " + Model.SelectTime)@{
+    if (Model.SelectTime == null)
+    {
+        @("推荐面试日期为"+Model.RecommendTime)
+    }
+} </h5>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form method="get" asp-route-id="1">
+            <div class="form-group">
+                <input type="hidden" name="id" value="@Model.Oldid" />
+                <label asp-for="SelectDay" class="control-label"></label>
+                <select asp-for="SelectDay" asp-items="Model.DayList">
+                    <option value="@Model.SelectDay"></option>
+                </select>
+
+                <input type="submit" class="btn" value="确定" />
+            </div>
+        </form>
+
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SelectTime" class="control-label"></label>
+                <select asp-for="SelectTime" asp-items="Model.EtcList">
+                    <option value="@Model.SelectTime"></option>
+                </select>
+                <span asp-validation-for="SelectTime" class="text-danger"></span>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary btn-sm">保存</button> <a asp-page="./Index">Back to List</a>
+            </div>
+
+            <input type="hidden" asp-for="SelectDay" />
+            <input type="hidden" asp-for="Record.rid" />
+            <div class="form-group">
+                <label asp-for="Record.name" class="control-label"></label>
+                <input asp-for="Record.name" class="form-control" />
+                <span asp-validation-for="Record.name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.id_student" class="control-label"></label>
+                <input asp-for="Record.id_student" class="form-control" />
+                <span asp-validation-for="Record.id_student" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Record.sex" /> @Html.DisplayNameFor(model => model.Record.sex)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.grade" class="control-label"></label>
+                <input asp-for="Record.grade" class="form-control" />
+                <span asp-validation-for="Record.grade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.major" class="control-label"></label>
+                <input asp-for="Record.major" class="form-control" />
+                <span asp-validation-for="Record.major" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.email" class="control-label"></label>
+                <input asp-for="Record.email" class="form-control" />
+                <span asp-validation-for="Record.email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.phone" class="control-label"></label>
+                <input asp-for="Record.phone" class="form-control" />
+                <span asp-validation-for="Record.phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.firstWish" class="control-label"></label>
+                <input asp-for="Record.firstWish" class="form-control" />
+                <span asp-validation-for="Record.firstWish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.secondWish" class="control-label"></label>
+                <input asp-for="Record.secondWish" class="form-control" />
+                <span asp-validation-for="Record.secondWish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.thirdWish" class="control-label"></label>
+                <input asp-for="Record.thirdWish" class="form-control" />
+                <span asp-validation-for="Record.thirdWish" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Record.adjustment" /> @Html.DisplayNameFor(model => model.Record.adjustment)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.firstReason" class="control-label"></label>
+                <input asp-for="Record.firstReason" class="form-control" />
+                <span asp-validation-for="Record.firstReason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.secondReason" class="control-label"></label>
+                <input asp-for="Record.secondReason" class="form-control" />
+                <span asp-validation-for="Record.secondReason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.thirdReason" class="control-label"></label>
+                <input asp-for="Record.thirdReason" class="form-control" />
+                <span asp-validation-for="Record.thirdReason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.question1" class="control-label"></label>
+                <input asp-for="Record.question1" class="form-control" />
+                <span asp-validation-for="Record.question1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Record.question2" class="control-label"></label>
+                <input asp-for="Record.question2" class="form-control" />
+                <span asp-validation-for="Record.question2" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                @for (int x = 0; x < Model.TimeDtos.Count(); x++)
+                {
+                    <div class="form-group form-check" style="display:inline-block">
+                        <label class="form-check-label">
+                            <input asp-for="TimeDtos[x].IsChoose" class="form-check-input" /> @(Model.TimeDtos[x].Day+" "+ Model.TimeDtos[x].BeginTime+" "+ Model.TimeDtos[x].Place)
+                            <input asp-for="TimeDtos[x].ID" type="hidden" />
+                        </label>
+
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

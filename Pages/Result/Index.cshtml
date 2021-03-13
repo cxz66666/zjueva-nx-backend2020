@@ -1,0 +1,68 @@
+﻿@page
+@model _2020_backend.Pages.Result.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h5>目前已经通过@(Model.Record.Count())位小py</h5>
+
+<form class="form-inline m-2" method="get">
+    <select asp-for="SelectDepartment" asp-items="@Html.GetEnumSelectList(typeof(Models.Department))" class="form-control">
+        <option value="">选择部门</option>
+    </select>
+    <input type="submit" value="Go!" class="btn btn-outline-primary mb-2" />
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Record[0].name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Record[0].id_student)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Record[0].sex)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Record[0].InterviewTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Record[0].FinalResult)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Record)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_student)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sex)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.InterviewTime)
+                </td>
+                <td>
+                    @Utils.DateHelp.GetDepartment(item.FinalResult)
+                </td>
+                <td>
+                    <a asp-page="../Records/Comment" asp-route-id="@item.rid">评论</a> |
+                    <a asp-page="../Records/Details" asp-route-id="@item.rid">详细信息</a> |
+                    <a asp-page="../Records/Pass" asp-route-id="@item.rid">换个部门</a> |
+                    <a asp-page="../Records/Pending" asp-route-id="@item.rid">我再想想</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
